@@ -75,7 +75,7 @@ jobs:
         run: |
           dotnet workload restore
           ./build.sh
-        working-directory: emscripten-local
+        working-directory: csharp
 
       - name: Build vue
         run: |
