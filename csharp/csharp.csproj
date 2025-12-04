@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmccExtraLDFlags>-sALLOW_TABLE_GROWTH -sIMPORTED_MEMORY --js-library $(MSBuildThisFileDirectory)sidelib.js</EmccExtraLDFlags>
+
+    <InvariantTimezone>true</InvariantTimezone>
+    <InvariantGlobalization>true</InvariantGlobalization>
+
+    <!-- <DefineConstants>$(DefineConstants);RB_DISABLE_IMPORT</DefineConstants> -->
+    <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <NativeFileReference Include="imports.c" /> -->
+    <EmccExportedRuntimeMethod Include="UTF8ToString" />
+    <EmccExportedRuntimeMethod Include="wasmMemory" />
+    <EmccExportedRuntimeMethod Include="addFunction" />
+    <EmccExportedRuntimeMethod Include="wasmTable" />
+    <!-- <EmccExportedRuntimeMethod Include="stackSave" />
+    <EmccExportedRuntimeMethod Include="stackRestore" />
+    <EmccExportedRuntimeMethod Include="stackAlloc" /> -->
+    <EmccExportedFunction Include="_malloc" />
+    <EmccExportedFunction Include="_free" />
+  </ItemGroup>
+</Project>
