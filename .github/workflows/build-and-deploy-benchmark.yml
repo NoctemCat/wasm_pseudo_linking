@@ -63,6 +63,12 @@ jobs:
       - name: Build dotnet
         run: ./csharp/build.sh
 
+      - name: Copy files
+        run: |
+          rm ./web/public
+          mkdir ./web/public
+          cp -a ./output/. ./web/public
+
       - name: Build vue
         run: |
           yarn install --immutable
