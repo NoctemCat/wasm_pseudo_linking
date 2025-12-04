@@ -29,5 +29,3 @@ docs/.vscode/*
 *.sw?
 
 *.tsbuildinfo
-
-public

@@ -202,7 +202,9 @@ export const useBenchmarkStore = defineStore('benchmark', () => {
         }
     };
 
-    const startDisabled = computed(() => benchmarkState.value === BenchmarkStates.Running);
+    const startDisabled = computed(
+        () => mainModule.value === null || benchmarkState.value === BenchmarkStates.Running,
+    );
     const stopDisabled = computed(() => benchmarkState.value === BenchmarkStates.Init);
     const resumeDisabled = computed(() => benchmarkState.value !== BenchmarkStates.Paused);
     const pauseDisabled = computed(
