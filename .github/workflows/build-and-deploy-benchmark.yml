@@ -55,6 +55,11 @@ jobs:
           ./emsdk activate latest
           source ./emsdk_env.sh
           echo "Checking EMSDK in Setup emscripten $EMSDK"
+          echo "$EMSDK" >> "$GITHUB_PATH"
+          echo "$EMSDK/upstream/emscripten" >> "$GITHUB_PATH"
+          echo "EMSDK=$(echo $EMSDK)" >> "$GITHUB_ENV"
+          echo "EMSDK_NODE=$(echo $EMSDK_NODE)" >> "$GITHUB_ENV"
+
         working-directory: emscripten-local
 
       - name: Check EMSDK
