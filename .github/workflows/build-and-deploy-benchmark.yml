@@ -54,8 +54,11 @@ jobs:
           ./emsdk install latest
           ./emsdk activate latest
           source ./emsdk_env.sh
-          echo "$PWD" >> $EMSDK
+          echo "Checking EMSDK in Setup emscripten $EMSDK"
         working-directory: emscripten-local
+
+      - name: Check EMSDK
+        run: echo "Checking EMSDK separately $EMSDK"
 
       - name: Build wasm
         run: ./wasm/build.sh
