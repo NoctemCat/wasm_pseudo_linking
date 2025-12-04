@@ -55,7 +55,13 @@ jobs:
         working-directory: emscripten-local
 
       - name: Build wasm
-        run: ./build.sh
+        run: ./wasm/build.sh
+
+      - name: Build cpp
+        run: ./cpp/build.sh
+
+      - name: Build dotnet
+        run: ./csharp/build.sh
 
       - name: Build vue
         run: |
