@@ -219,13 +219,7 @@ to support older browsers.
 
 ### Threads
 
-> [!WARNING]
-> If threads are used you will need to adjust all memory imports to
-> `**(memory 1 2 shared)**` the second number being "maximum" size.
-
-This all guesses, but it's hightly likely that mutexes won't be shared between modules,
-so they would need to be wrapped in marshalling calls that will also create mutex from
-other module.
+For now doesn't work with them, currently only singlethreaded
 
 ## Current implementation
 
