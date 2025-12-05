@@ -26,7 +26,8 @@ async function PseudoNet(moduleArg = {}) {
     rbLog("dotnet: exports", netExports);
     await runMain();
 
-    // 'rb_dlsym' can't handle js functions, so this is a workaround to make it wasm function
+    // Robust workaround for [JSExport]
+    // 'rb_dlsym' can't handle js functions, so this is a workaround to make it a wasm function
     Module[`_EntryPoint`] = Module.wasmTable.get(Module.addFunction(netExports.WasmPseudoLinking.Program.EntryPoint, "ppp"));
     return Module;
 }

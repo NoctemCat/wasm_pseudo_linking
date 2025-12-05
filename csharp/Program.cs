@@ -16,11 +16,11 @@ internal partial class Program
     public unsafe static nint EntryPoint(MainMemoryPtr rbBridgeFunc, nint selfId)
     {
         Console.WriteLine($"dotnet: EntryPoint entered {(nint)rbBridgeFunc}, id:{selfId}");
-        MainMemory.Init((delegate* unmanaged[Cdecl]<nint, void*, void*>)rbBridgeFunc, selfId);
-        return (nint)MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<void*, MainMemoryPtr>)&NetDlsym);
+        MainMemory.Init((delegate* unmanaged<nint, void*, void*>)rbBridgeFunc, selfId);
+        return (nint)MainMemory.StmAddFnPtr((delegate* unmanaged<void*, MainMemoryPtr>)&NetDlsym);
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     public unsafe static MainMemoryPtr NetDlsym(void* namePtr)
     {
         string? name = Marshal.PtrToStringUTF8((nint)namePtr);
@@ -28,27 +28,27 @@ internal partial class Program
 
         return name switch
         {
-            nameof(Sub) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, MainMemoryPtr, MainMemoryPtr, void>)&Sub),
-            nameof(SortArray) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArray),
-            nameof(SortArrayFallback) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArrayFallback),
-            nameof(SortArrayDirect) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArrayDirect),
+            nameof(Sub) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, MainMemoryPtr, MainMemoryPtr, void>)&Sub),
+            nameof(SortArray) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArray),
+            nameof(SortArrayFallback) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArrayFallback),
+            nameof(SortArrayDirect) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArrayDirect),
 #if !RB_DISABLE_IMPORT
-            nameof(SortArrayImport) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArrayImport),
-            nameof(SortArrayImportFallback) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArrayImportFallback),
-            nameof(SortArrayDirectImport) => MainMemory.StmAddFnPtr((delegate* unmanaged[Cdecl]<MainMemoryPtr, int, void>)&SortArrayDirectImport),
+            nameof(SortArrayImport) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArrayImport),
+            nameof(SortArrayImportFallback) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArrayImportFallback),
+            nameof(SortArrayDirectImport) => MainMemory.StmAddFnPtr((delegate* unmanaged<MainMemoryPtr, int, void>)&SortArrayDirectImport),
 #endif
             _ => null,
         };
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void Sub(MainMemoryPtr aPtr, MainMemoryPtr bPtr, MainMemoryPtr retPtr)
     {
         MainMemory.SetI32(retPtr, MainMemory.GetI32(aPtr) - MainMemory.GetI32(bPtr));
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArray(MainMemoryPtr array, int length)
     {
@@ -61,7 +61,7 @@ internal partial class Program
         }
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArrayFallback(MainMemoryPtr array, int length)
     {
@@ -74,7 +74,7 @@ internal partial class Program
         }
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArrayDirect(MainMemoryPtr array, int length)
     {
@@ -82,7 +82,7 @@ internal partial class Program
     }
 
 #if !RB_DISABLE_IMPORT
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArrayImport(MainMemoryPtr array, int length)
     {
@@ -95,7 +95,7 @@ internal partial class Program
         }
     }
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArrayImportFallback(MainMemoryPtr array, int length)
     {
@@ -109,7 +109,7 @@ internal partial class Program
     }
 
 
-    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly]
     [SkipLocalsInit]
     public unsafe static void SortArrayDirectImport(MainMemoryPtr array, int length)
     {
