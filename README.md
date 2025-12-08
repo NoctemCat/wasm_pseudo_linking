@@ -1,4 +1,4 @@
-# Wasm Pseudo Linking
+# Wasm Pseudo Linking demo
 
 This repo demonstrates a possible way to marshal memory and function calls
 between 2 separate wasm modules.
@@ -219,7 +219,11 @@ to support older browsers.
 
 ### Threads
 
-For now doesn't work with them, currently only singlethreaded
+For now doesn't work with them, currently both single-threaded. After some testing it is
+theoretically possible to do a limited main multi-threaded, side single-threaded or
+a limited main single-threaded, side multi-threaded. But the diffuculty rise sharply
+so it is not worth to implement it currently. I guess main multi-threaded, side multi-threaded
+could be possible, but it would be even more limited than other versions.
 
 ## Current implementation
 
